@@ -1,0 +1,26 @@
+name: Typeset
+
+on: push
+
+jobs:
+    typeset:
+        name: Typeset
+        runs-on: ubuntu-latest
+        permissions:
+            contents: write
+        steps:
+            - name: Install dependencies
+              uses: baptiste0928/cargo-install@91c5da15570085bcde6f4d7aed98cb82d6769fd3 # v3.3.0
+              with:
+                  crate: typst-cli
+                  version: 0.12.0
+            - name: Check out
+              uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+            - name: Compile PDF
+              run: typst compile main.typ main.pdf
+            - name: Upload
+              uses: actions/upload-artifact@65c4c4a1ddee5b72f698fdd19549f0f0fb45cf08 # v4.6.0
+              with:
+                  name: Compiled
+                  path: main.pdf
+                  if-no-files-found: error
