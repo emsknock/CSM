@@ -10,7 +10,10 @@ jobs:
             contents: write
         steps:
             - name: Install dependencies
-              run: cargo install --locked typst-cli@0.12.0
+              uses: baptiste0928/cargo-install@91c5da15570085bcde6f4d7aed98cb82d6769fd3 # v3.3.0
+              with:
+                  crate: typst-cli
+                  version: 0.12.0
             - name: Check out
               uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
             - name: Compile PDF
